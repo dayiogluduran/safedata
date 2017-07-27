@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Safe Datas</string>
+    <string name="write_act">Input Data</string>
+    <string name="read_act">Read Data</string>
+</resources>
