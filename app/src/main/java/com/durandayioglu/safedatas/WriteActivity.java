@@ -32,7 +32,6 @@ public class WriteActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Database db = new Database(WriteActivity.this);
                 db.veriEkle(ad.getText().toString(), soyad.getText().toString(), email.getText().toString(), sifre.getText().toString());
-
                 ad.setText("");
                 soyad.setText("");
                 email.setText("");
@@ -44,12 +43,11 @@ public class WriteActivity extends AppCompatActivity {
         listele.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(WriteActivity.this,ReadActivity.class);
+                Intent intent=new Intent(WriteActivity.this,MainActivity.class);
                 startActivity(intent);
             }
         });
     }
-
 
     //Geri Butonuna basıldığında main activitye döndüren metod
     @Override

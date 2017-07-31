@@ -16,8 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WriteActivity" android:label="@string/write_act" />
-        <activity android:name=".ReadActivity" android:label="@string/read_act"></activity>
+        <activity android:name=".WriteActivity" android:label="Yeni Kayıt" />
     </application>
 
 </manifest>
