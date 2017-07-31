@@ -58,9 +58,29 @@ public class Database extends SQLiteOpenHelper {
         String[] sutunlar = {ROW_ID, ROW_AD, ROW_SOYAD, ROW_EMAIL, ROW_SIFRE};
         Cursor cr = db.query(DATABASE_TABLE, sutunlar, null, null, null, null, null);
         while (cr.moveToNext()) {
-            veriler.add(cr.getInt(0) + " - " + cr.getString(1) + " " + cr.getString(2) + " - " + cr.getString(3) + " - " + cr.getString(4));
+            veriler.add(cr.getInt(0) + " - " + cr.getString(1) + " - " + cr.getString(2) + " - " + cr.getString(3) + " - " + cr.getString(4));
         }
 
         return veriler;
+    }
+
+    public void VeriSil(long id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(DATABASE_TABLE, ROW_ID + "=" + id, null);
+        db.close();
+    }
+
+    public void VeriDuzenle(long id, String ad, String soyad,String email,String sifre)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(ROW_AD, ad);
+        cv.put(ROW_SOYAD, soyad);
+        cv.put(ROW_EMAIL, email);
+        cv.put(ROW_SIFRE, sifre);
+
+        db.update(DATABASE_TABLE, cv, ROW_ID + "=" + id, null);
+        db.close();
     }
 }
