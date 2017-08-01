@@ -49,6 +49,7 @@ public class Database extends SQLiteOpenHelper {
         cv.put(ROW_EMAIL, email.trim());
         cv.put(ROW_SIFRE, sifre.trim());
         db.insert(DATABASE_TABLE, null, cv);
+
         db.close();
     }
 
