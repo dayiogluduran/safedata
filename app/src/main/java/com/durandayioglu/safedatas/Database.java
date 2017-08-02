@@ -52,16 +52,13 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<String> veriListele() {
+    public Cursor veriListele() {
         List<String> veriler = new ArrayList<String>();
         SQLiteDatabase db = this.getWritableDatabase();
         String[] sutunlar = {ROW_ID, ROW_AD, ROW_SOYAD, ROW_EMAIL, ROW_SIFRE};
         Cursor cr = db.query(DATABASE_TABLE, sutunlar, null, null, null, null, null);
-        while (cr.moveToNext()) {
-            veriler.add(cr.getInt(0) + " - " + cr.getString(1) + " - " + cr.getString(2) + " - " + cr.getString(3) + " - " + cr.getString(4));
-        }
 
-        return veriler;
+        return cr;
     }
 
     public void VeriSil(long id)

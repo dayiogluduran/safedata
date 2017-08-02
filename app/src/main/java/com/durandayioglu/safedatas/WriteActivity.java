@@ -1,6 +1,8 @@
 package com.durandayioglu.safedatas;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class WriteActivity extends AppCompatActivity {
+    Crypto c;
+    String keyy;
+    SharedPreferences sP;
+    SharedPreferences.Editor editor;
 
 
     @Override
@@ -26,12 +32,26 @@ public class WriteActivity extends AppCompatActivity {
         Button kaydet = (Button) findViewById(R.id.btnKaydet);
         Button listele = (Button) findViewById(R.id.btnGoruntule);
 
+        sP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = sP.edit();
+
+        if (sP.getString("oldKey", null) == null) {
+            c = new Crypto(16, 7);
+            c.createKey(16);
+            keyy = c.getKey();
+            editor.putString("oldKey", c.getKey());
+            editor.commit();
+        } else {
+            c = new Crypto(sP.getString("oldKey", null), 7);
+            keyy = c.getKey();
+        }
+
 
         kaydet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Database db = new Database(WriteActivity.this);
-                db.veriEkle(ad.getText().toString(), soyad.getText().toString(), email.getText().toString(), sifre.getText().toString());
+                db.veriEkle(c.encode(ad.getText().toString()), c.encode(soyad.getText().toString()), c.encode(email.getText().toString()), c.encode(sifre.getText().toString()));
                 ad.setText("");
                 soyad.setText("");
                 email.setText("");
@@ -43,7 +63,7 @@ public class WriteActivity extends AppCompatActivity {
         listele.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(WriteActivity.this,MainActivity.class);
+                Intent intent = new Intent(WriteActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

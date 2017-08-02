@@ -2,6 +2,9 @@ package com.durandayioglu.safedatas;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
     Button writeButton;
     ListView listele;
+    Crypto c;
+    String keyy;
+    SharedPreferences sP;
+    SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +42,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
         listele = (ListView) findViewById(R.id.lstListele);
+
+        sP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        editor = sP.edit();
+
+        if (sP.getString("oldKey", null) == null) {
+            c = new Crypto(16, 7);
+            c.createKey(16);
+            keyy = c.getKey();
+            editor.putString("oldKey", c.getKey());
+            editor.commit();
+        } else {
+            c = new Crypto(sP.getString("oldKey", null), 7);
+            keyy = c.getKey();
+        }
 
         kayitListele();
 
@@ -55,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.yeniKayit:
-                Intent i=new Intent(MainActivity.this,WriteActivity.class);
+                Intent i = new Intent(MainActivity.this, WriteActivity.class);
                 startActivity(i);
                 break;
 
@@ -83,10 +106,31 @@ public class MainActivity extends AppCompatActivity {
 
     public void kayitListele() {
         Database db = new Database(MainActivity.this);
-        final List<String> gelenListe = db.veriListele();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, gelenListe);
+        ArrayList<String> veriler=new ArrayList<String>();
+
+        String tempID;
+        String tempName;
+        String tempSurname;
+        String tempMail;
+        String tempPass;
+
+        Cursor cr=db.veriListele();
+        while (cr.moveToNext()) {
+
+            tempID = c.decode(cr.getInt(0) + "");
+            tempName = c.decode(cr.getString(1));
+            tempSurname = c.decode(cr.getString(2));
+            tempMail = c.decode(cr.getString(3));
+            tempPass = c.decode(cr.getString(4));
+
+
+            veriler.add(tempID + " - " + tempName + " - " + tempSurname+ " - " + tempMail+ " - " + tempPass);
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, veriler);
         listele.setAdapter(adapter);
     }
+
     public void VerileriBosalt(ListView lv) {
         List<String> bos = new ArrayList<String>();
         ArrayAdapter<String> bosAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, bos);
