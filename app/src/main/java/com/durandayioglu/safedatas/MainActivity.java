@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         Cursor cr=db.veriListele();
         while (cr.moveToNext()) {
 
-            tempID = c.decode(cr.getInt(0) + "");
+            tempID = cr.getInt(0) + "";
             tempName = c.decode(cr.getString(1));
             tempSurname = c.decode(cr.getString(2));
             tempMail = c.decode(cr.getString(3));

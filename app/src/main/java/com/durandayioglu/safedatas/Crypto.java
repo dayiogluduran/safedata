@@ -74,7 +74,7 @@ public class Crypto {
             inI = indexOf(input.charAt(i));
             keyI = indexOf(key.charAt(k));
             k = (k + 1) % keyN;
-            resI = Math.abs(((inI - keyI) - cons)) % alfabe.length;
+            resI = (((inI - keyI) - cons)+alfabe.length) % alfabe.length;
             decoded += alfabe[resI];
         }
 
