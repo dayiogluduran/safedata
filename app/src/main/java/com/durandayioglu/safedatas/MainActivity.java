@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -24,7 +23,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.Manifest;
 
 public class MainActivity extends AppCompatActivity {
 

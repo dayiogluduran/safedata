@@ -16,7 +16,7 @@ public class Crypto {
     public Crypto(int keyN ,int cons) {
         this.cons = cons;
         this.keyN = keyN;
-        alfabe = "abcçdefgğhjklmnoöprsştuüvyzxABCÇDEFGĞHJKLMNOÖPRSŞTUÜVYZX<>1234567890*!'^+%&/()=?-_£#$½¾{[]}|@€Â§,.;:~".toCharArray();
+        alfabe = "abcçdefgğhjkıilmnoöprsştuüvyzxABCÇDEFGĞHJKIİLMNOÖPRSŞTUÜVYZX<>1234567890*!'^+%&/()=?-_£#$½¾{[]}|@€Â§,.;:~".toCharArray();
         key = createKey(keyN);
 
     }
@@ -25,7 +25,7 @@ public class Crypto {
         this.cons = cons;
         this.key = key;
         keyN = key.length();
-        alfabe = "abcçdefgğhjklmnoöprsştuüvyzxABCÇDEFGĞHJKLMNOÖPRSŞTUÜVYZX<>1234567890*!'^+%&/()=?-_£#$½¾{[]}|@€Â§,.;:~".toCharArray();
+        alfabe = "abcçdefgğhjkıilmnoöprsştuüvyzxABCÇDEFGĞHJKIİLMNOÖPRSŞTUÜVYZX<>1234567890*!'^+%&/()=?-_£#$½¾{[]}|@€Â§,.;:~".toCharArray();
     }
 
     public String createKey(int keyN) {
